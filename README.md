@@ -71,7 +71,7 @@ Traceback (most recent call last):
 KeyboardInterrupt
 ```
 ## Cron syntax Compatability
-#
+
 EasySchedule is capable of parsing most cron schedule syntax
 
 #
