@@ -12,31 +12,65 @@ from easyschedule import EasyScheduler
 scheduler = EasyScheduler()
 
 default_args = {'args': [1, 2, 3]}
-every_minute = '* * * * *'
-every_5_minutes_wk_end = '*/5, * * * FRI,SAT'
+weekday_every_minute = '* * * * MON-FRI'
 
-@scheduler(schedule=every_minute, default_args=default_args)
-def print_stuff(a, b, c):
+@scheduler(schedule=weekday_every_minute, default_args=default_args)
+def weekday_stuff(a, b, c):
     print(f"a {a} b: {b} c {c}")
 
-def print_more_stuff():
-    print_stuff(3,4,5)
+@scheduler.delayed_start(delay_in_seconds=30)
+async def delay_startup():
+    print(f"## startup task - started ##")
+    await asyncio.sleep(10)
+    print(f"## startup task - ended ##")
+
+@scheduler.shutdown()
+async def shutdown():
+    print(f"## shutdown task - started ##")
+    await asyncio.sleep(10)
+    print(f"## shutdown task - ended ##")
+
+@scheduler.once(date_string='2022-03-12 16:18:03')
+async def next_year():
+    print(f"That was a long year")
 
 async def main():
-    # start scheduler in background
+    # start scheduler
     sched = asyncio.create_task(scheduler.start())
     await asyncio.sleep(10)
 
-    # add task after scheduler has already started
-    scheduler.schedule(print_more_stuff, schedule=cron2)
+    # dynamicly schedule task
+    wk_end_args = {'kwargs': {'count': 5}}
+    weekend = '30 17-23,0-5 * * SAT,SUN'
 
+    def weekend_stuff(count: int):
+        for _ in range(count):
+            print_stuff(3,4,5)
+            print_stuff(5,6,7)
+
+    scheduler.schedule(
+        weekend_stuff, 
+        schedule=weekend,
+        default_args=wk_end_args
+    )
     await sched
+
+asyncio.run(main())
 
 asyncio.run(main())
 ```
 ```bash
-03-09 10:35:32 EasyScheduler WARNING  weekday_stuff next_run_time: 2021-03-09 10:36:00.843493
-03-09 10:35:42 EasyScheduler WARNING  weekend_stuff next_run_time: 2021-03-13 00:31:00.853770
+03-13 09:09:25 EasyScheduler WARNING  weekday_stuff next_run_time: 2021-03-15 00:01:00.143645
+03-13 09:09:25 EasyScheduler WARNING  single task delay_startup scheduled to run at 2021-03-13 09:09:55.143337 in 30.0 s
+03-13 09:09:25 EasyScheduler WARNING  single task next_year scheduled to run at 2022-03-12 16:18:03 in 31475317.856636 s
+03-13 09:09:35 EasyScheduler WARNING  weekend_stuff next_run_time: 2021-03-13 17:31:00.152428
+03-13 09:09:48 EasyScheduler WARNING  shutdown task shutdown triggered at 2021-03-13 09:09:48.937516
+## shutdown task - started ##
+## shutdown task - ended ##
+Traceback (most recent call last):
+  File "test.py", line 50, in <module>
+    asyncio.run(main())
+KeyboardInterrupt
 ```
 ## Cron syntax Compatability
 #
