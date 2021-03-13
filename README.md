@@ -45,8 +45,8 @@ async def main():
 
     def weekend_stuff(count: int):
         for _ in range(count):
-            print_stuff(3,4,5)
-            print_stuff(5,6,7)
+            weekday_stuff(3,4,5)
+            weekday_stuff(5,6,7)
 
     scheduler.schedule(
         weekend_stuff, 
@@ -54,8 +54,6 @@ async def main():
         default_args=wk_end_args
     )
     await sched
-
-asyncio.run(main())
 
 asyncio.run(main())
 ```
