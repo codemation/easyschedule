@@ -132,7 +132,7 @@ class EasyScheduler:
                 except Exception as e:
                     if isinstance(e, asyncio.CancelledError):
                         raise e
-                    self.log.exception(f"error running scheduled task - {task}")
+                    self.log.exception(f"error running single task - {func.__name__}")
             except asyncio.CancelledError:
                 return
         
