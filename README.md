@@ -1,4 +1,4 @@
-# EasySchedule
+# easyschedule
 
 ## Get Started
 ```bash
@@ -7,7 +7,7 @@ pip install easyschedule
 
 ```python
 import asyncio
-from easyschedule.scheduler import EasyScheduler
+from easyschedule import EasyScheduler
 
 scheduler = EasyScheduler()
 
