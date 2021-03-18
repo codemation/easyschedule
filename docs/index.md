@@ -1,4 +1,4 @@
-![](./images/logo.png)
+![](./images/logo3.png)
 
 <h3>An asynchronus scheduler for python tasks, which uses Cron schedules for precise scheduling recurring tasks</h3>
 

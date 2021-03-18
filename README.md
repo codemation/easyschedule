@@ -1,4 +1,4 @@
-![](./images/logo.png)
+![](./docs/images/logo3.png)
 
 <h3>An asynchronus scheduler for python tasks, which uses Cron schedules for precise scheduling recurring tasks</h3>
 
@@ -7,6 +7,8 @@
 
 ## Documenation
 [https://easyschedule.readthedocs.io/en/latest/](https://easyschedule.readthedocs.io/en/latest/)
+
+#
 
 ## Get Started
 ```bash
