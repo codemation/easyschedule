@@ -1,5 +1,13 @@
 ![](./images/logo.png)
 
+<h3>An asynchronus scheduler for python tasks, which uses Cron schedules for precise scheduling recurring tasks</h3>
+
+[![Documentation Status](https://readthedocs.org/projects/easyschedule/badge/?version=latest)](https://easyschedule.readthedocs.io/en/latest/?badge=latest) [![PyPI version](https://badge.fury.io/py/easyschedule.svg)](https://pypi.org/project/easyschedule/)
+#
+
+## Documenation
+[https://easyschedule.readthedocs.io/en/latest/](https://easyschedule.readthedocs.io/en/latest/)
+
 ## Get Started
 ```bash
 pip install easyschedule
