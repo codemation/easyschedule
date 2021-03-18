@@ -1,4 +1,4 @@
-# easyschedule
+![](./images/logo.png)
 
 ## Get Started
 ```bash
