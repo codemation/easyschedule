@@ -1,0 +1,4 @@
+site_name: EasySchedule
+theme: readthedocs
+markdown_extensions:
+  - admonition
