@@ -44,7 +44,7 @@ class EasyScheduler:
             default_args['kwargs'] = {}
         def scheduler(func):
             async def scheduled(*args, **kwargs):
-                result = func(*args, *kwargs)
+                result = func(*args, **kwargs)
                 if asyncio.iscoroutine(result):
                     result = await result
                 return result
@@ -235,7 +235,7 @@ class EasyScheduler:
                     schedule = self.scheduled_tasks[task]['schedule']
                     default_args = self.scheduled_tasks[task]['default_args']
                     next_run_time, delay = get_schedule_delay(schedule)
-                    self.log.warning(f"{task} next_run_time: {next_run_time}")
+                    self.log.warning(f"{task} next_run_time: {next_run_time} - default_args: {default_args}")
                     await asyncio.sleep(delay)
                     try:
                         await func(*default_args['args'], **default_args['kwargs'])
