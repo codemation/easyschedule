@@ -1,10 +1,15 @@
 import datetime
 
+# days of week are purposely -1 of standard CRON
+# integers
 DAYS_OF_WEEK = {
     'MON': 0, 'TUE': 1, 'WED': 2,
     'THU': 3, 'FRI': 4, 'SAT': 5,
-    'SUN': 6
+    'SUN': 6, '7': 6, 7: 6, 0: 6, 
+    '0': 6, '1': 0, '2': 1, '3': 2,
+    '4': 3, '5': 4, '6': 5
 }
+
 MONTHS_OF_YEAR = { 
     'JAN': 1, 'FEB': 2, 'MAR': 3,
     'APR': 4, 'MAY': 5, 'JUN': 6,
@@ -24,7 +29,7 @@ def parse_schedule_items(items: str, max_range: int):
                     start, end = i.split('-')
                     items = items + [i for i in range(int(start), int(end)+1, int(step))]   
                 else:
-                    items.append(h)
+                    items.append(i)
 
             items = [int(i) for i in items]
         elif '-' in items:  
@@ -94,7 +99,10 @@ def get_schedule_delay(schedule: str) -> tuple:
                 assert start < end, f"months start cannot be less than end"
                 months = [i for i in range(int(start), int(end)+1)]
         else:
-            months = [int(months)]
+            if months.upper() in MONTHS_OF_YEAR:
+                months = [MONTHS_OF_YEAR[months.upper()]]
+            else:
+                months = [int(months)]
     else:
         step =1
         if '/' in months:
