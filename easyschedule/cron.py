@@ -155,4 +155,4 @@ def get_schedule_delay(schedule: str) -> tuple:
             current = current + datetime.timedelta(seconds=60-current.second)
         break
     delta = current - datetime.datetime.now()
-    return current, delta.total_seconds()
+    return current - datetime.timedelta(seconds=60), delta.total_seconds() - 60
